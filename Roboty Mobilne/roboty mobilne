@@ -1,0 +1,146 @@
+DEFINICJE ROBOTA I ROBOTYZACJI
+
+Def. Robota (wg. prof. A. Moreckiego)
+Robot jest automatycznie urządzenia techniczne zdolne do naśladowania niektórych czynności manipulacyjnych, lokomocyjnych a także intelektualnych człowieka 
+
+Pojęcie robotyzacji
+Robotyzacja jest naturalnym rozwinięciem automatyzacji w kierunku budowy i stosowania urządzeń o większej elastyczności i uniwersalnosci działania, nasladujacej uniwersalność człowieka 
+
+
+
+BUDOWA ROBOTA
+
+W aspekcie funcjonalnym, w każdym robocie można wyróżnić trzy podsystemy:
+- układ mechaniczny;
+- układ sterowania
+- układ zasilania
+
+
+Układ Zasilania
+
+Porówanie właściwości podstawowych typów napędków robotów:
+[ Rodzaj napędu	| Sprawność całkowita 	| Moc z jednostki masy napędu 	| Siła z jednoski powierdzchi czynnej 	]
+[ 		| [%] 			| [W/kg] 			| [N/cm^3] 				]
+[ - - - - - - - | - - - - - - - - - - - | - - - - - - - - - - - - - - - | - - - - - - - - - - - - - - - - - - - ]
+[ Elektryczny 	| 50-55 		| 25-150 			| 0.3-1.5 				]
+[ Hydrauliczny 	| 30-40 		| 650 				| 2000 					]
+[ Pneumatyczny 	| 20-30 		| 300 				| 100 					]
+
+Podstawowe korzystne cechy napędów elektycznych:
+- prosty sposób dostaczania i konwersji energii,
+- dobre dostsowanie do sterowania elektronicznego,
+- duża dokładność i powtarzalność ruchów,
+- nie zanieczyszczanie środowiska i stosunkowo cicha praca.
+
+Chechy elektycznych napędów stosowanych w robotyce:
+- zakres momentów napędowych 0.1-100 Nm,
+- zakres mocy 0.1-10 kW,
+- mała bezwładność wirnika,
+- duża wartość momentu generowanego w stosunku do masy silnika,
+- stosunek momentu szczytowego do nominalnego nawet jak 10:1,
+- zakres prędkości jak 1:10000,
+- gładki ruch widnika z ograniczoną pulsacją prędkości i momentu,
+- wysoka przecyzja pprozycjonowania napędu,
+- czterokwarantowa praca (ruch w obu kierunkach z możliwością odzysku energii).
+
+[Rodzaje napędów elektycznych]
+- silniki prądu stałego z mechanoczum komutatorem
+- bezczotkowe silniki (...)
+(...)
+
+Cechy napędów pneumatycznych
+- prostota kontrukcji
+- niski koszt
+- wysokoa niezawoność
+- możliwość stosowania w środkowskach wybuchowych lub narażonych na promieniowanie radioaktywne.
+
+Podstawowe typy aktutorów pneumatycznych stosowane w robotyce
+- siłowniki jednostronne działania ze sprężyną zwrotną,
+- siłowniki drustronnego działania,
+- siłowniki betłoczyskowe o sprzężeniu megnetycznym,
+- mięśnie pneumatyczne.
+
+Wady napędów pneumatycznych ograniczające ich zastowowanie w robotyce
+- niska sprawnośc energetyczna,
+- nieliniowość chataterystyki statycznej,
+- podatność napędu,
+- znaczący czas napełnienie i opróżniania komór,
+- nieliniowy charakter tarcia tłoka o ścianki cylindra.
+
+Mięśnie pneumatyczne 
+* gumowa rurka oleciona siatką,
+* występuje histereza
+
+
+
+UWAGI NA TEMAT UKŁADU STEROWANIA
+Sterowanie robotem podlega na:
+- zapewnieniu określonego następstwa kroków programu działania (sterowanie logiczne);
+- zapewnianiu właściwej realizacji poszczególnych ktorków programu działania (pozycjowanie osi);
+
+Podstawowe typy typy pozycjonowania wewnętrznego:
+- pozycjonowanie zderzakowe (oś przyjmuje niewiele położeń - najczęściej dwa skrajne);
+- pozyzjonowanie dymensyjne (oś przyjmuje dowolnie wiele, w granicach dokładności sterowania, położeń)
+
+Realizacja pozycjonowania wewnętrznej robota:
+
+1. Pozycjonowanie w układzie otwartym
+Układ programu ruchu -> sygnał sterowania napędem osi -> oś ruchu -> przekaźnik położenia -> sygnał zakończenia kroku programu -> układ programu ruchu
+
+2. Pozycjonowanie w układzie ze sprzężeniem zwrotnym
+Układ programu ruchu -> wartość zadana prametru ruchu -> regulator -> oś ruchu -> przetwornik pomiarowy -> pomiar parametrów ruchu -> układ programu ruchu oraz regulator
+
+
+
+STEROWANIE LOGICZNE - PROBLEM INTELIGECJI I AUTONOMII ROBOTÓW
+
+Struktura systemu sterowania robota pierwszej generacji
+plan działania -> [sterowanie ruchem] -> [sterowanie napędami] -> [układ wykonawczy] -> otoczenie
+									\-> [sensory wewnętrzne] -> [określanie pozycji] -> [sterowanie ruchem]
+										\-> [sterowanie napędami]
+
+Struktura systemu sterowania robota drugiej generacji (uwzględnia informacje o otoczeniu)
+plan działania -> [sterowanie ruchem] -> [sterowanie napędami] -> [układ wykonawczy] -> [otoczenie] -> [sensory zewnętrzne] -> [sterowanie ruchem]
+									\					\-> [określanie pozycji] -> [sterowanie ruchem]
+									\-> [sensory wewnętrzne] -> [określanie pozycji] 
+										\-> [sterowanie napędami]
+
+
+Struktura systemu sterowania robota trzeciej generacji (planuje działanie)
+Programowanie offline
+[planowanie działania] -> [sterowanie ruchem] -> [sterowanie napędami] -> [układ wykonawczy] -> [otoczenie] -> [sensory zewnętrzne] -> [sterowanie ruchem]
+										\					\-> [określanie pozycji] -> [sterowanie ruchem]
+										\					\-> [planowanie działania]
+										\-> [sensory wewnętrzne] -> [określanie pozycji] -> [planowanie działania] 
+											\-> [sterowanie napędami] 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Spis treści wykładu I
+
+
+
+
