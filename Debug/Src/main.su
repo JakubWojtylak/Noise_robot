@@ -1,0 +1,8 @@
+main.c:64:5:adc_read	24	static
+main.c:82:6:ruchPrzod	16	static
+main.c:105:6:obrot_lewo	16	static
+main.c:131:6:obrot_prawo	16	static
+main.c:148:6:obrot180	0	static
+main.c:266:6:SystemClock_Config	96	static
+main.c:163:5:main	8	static
+main.c:315:6:Error_Handler	0	static
