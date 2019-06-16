@@ -49,11 +49,13 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-  uint16_t Mikrofon1 = 0;
-  uint16_t Mikrofon2 = 0;
-  uint16_t Mikrofon3 = 0;
-  uint16_t Mikrofon4 = 0;
-  uint32_t adc[4];
+//Zmienne przycisk************************************
+volatile GPIO_PinState StanPrzycisku;
+volatile GPIO_PinState PoprzedniStanPrzycisku = GPIO_PIN_SET;
+volatile uint32_t PoprzedniCzasPrzycisku;
+//****************************************************
+
+uint32_t adc[4];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -148,8 +150,9 @@ void obrot_prawo(uint16_t v, uint16_t t){
 void obrot180(){
 obrot_lewo(1000,2000);
 }
-/* USER CODE END PFP */
 
+
+/* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -203,6 +206,7 @@ int main(void)
   char DataToSend[100]; // Tablica zawierajaca dane do wyslania
   uint8_t MessageLength = 0; // Zawiera dlugosc wysylanej wiadomosci
 
+
   /*TIM1->CCR1 = 900;
   TIM1->CCR2 = 0;
 
@@ -226,7 +230,7 @@ int main(void)
    	TIM1->CCR2 = 1000;*/
 
 
-  obrot180();
+  ruchPrzod(500, 5000);
   HAL_Delay(2000);
 
   /* USER CODE END 2 */
@@ -235,7 +239,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 
 
 	  //Mikrofon1 = adc_read(ADC_CHANNEL_0);
@@ -305,6 +308,42 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+	GPIO_PinState OdczytanyStanPrzycisku;
+
+
+	if(GPIO_Pin == Krancowka1_Pin)
+	{
+		HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+
+		OdczytanyStanPrzycisku = HAL_GPIO_ReadPin( Krancowka1_GPIO_Port,  Krancowka1_Pin);
+
+
+		if (OdczytanyStanPrzycisku != StanPrzycisku)
+		{
+		  StanPrzycisku = OdczytanyStanPrzycisku;
+
+		  if (StanPrzycisku == GPIO_PIN_RESET)
+		  {
+
+			  TIM1->CCR1 = 0;
+			  TIM1->CCR2 = 0;
+
+		  }
+
+		}
+
+		PoprzedniStanPrzycisku = OdczytanyStanPrzycisku;
+
+
+		HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+	}
+
+
+}
 
 /* USER CODE END 4 */
 
