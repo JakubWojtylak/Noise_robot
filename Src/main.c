@@ -394,9 +394,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		OdczytanyStanPrzycisku = HAL_GPIO_ReadPin( Krancowka1_GPIO_Port,  Krancowka1_Pin);
 
 
-		if (OdczytanyStanPrzycisku != StanPrzycisku)
-		{
-		  StanPrzycisku = OdczytanyStanPrzycisku;
 
 		  if (StanPrzycisku == GPIO_PIN_RESET)
 		  {
@@ -406,7 +403,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 		  }
 
-		}
+
 
 		PoprzedniStanPrzycisku = OdczytanyStanPrzycisku;
 
@@ -423,9 +420,6 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 		OdczytanyStanPrzycisku2 = HAL_GPIO_ReadPin( PoziomHalasu_GPIO_Port,  PoziomHalasu_Pin);
 
 
-		if (OdczytanyStanPrzycisku2 != StanPrzycisku2)
-		{
-		  StanPrzycisku2 = OdczytanyStanPrzycisku2;
 
 		  if (StanPrzycisku2 == GPIO_PIN_RESET)
 		  {
@@ -433,7 +427,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 		  }
 
-		}
+
 
 		PoprzedniStanPrzycisku2 = OdczytanyStanPrzycisku2;
 
