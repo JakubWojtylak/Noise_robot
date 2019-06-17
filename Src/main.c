@@ -64,6 +64,7 @@ uint32_t PoprzedniCzasPrzycisku2;
 const uint16_t ProgiHalasu[] = { 50, 100, 150, 250, 300};
 volatile uint8_t KtoryProgHalasu;
 uint32_t adc[4];
+uint32_t adc1,adc2,adc3,adc4;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -230,7 +231,7 @@ int main(void)
   //670 -> obrot kola o 360 kolo r = 30mm
   //410 (moze 400) -> obrot robota o 90 stopni przelicznik 4,56 (moze 4,45)
 
-  KtoryProgHalasu = 3;
+  KtoryProgHalasu = 0;
 
   uint16_t WartoscMax = 0;
   uint8_t MikrofonMax = 0;
@@ -268,66 +269,111 @@ int main(void)
 		PoprzedniStanPrzycisku = OdczytanyStanPrzycisku;*/
 
 
-	  	WartoscMax = 0;
-	  	MikrofonMax = 0;
 
-	  	Tymczasowa = adc[0];
-	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
-		{
-	  		WartoscMax = Tymczasowa;
-	  		MikrofonMax = 1;
-		}
-
-	  	Tymczasowa = adc[1];
-	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
-		{
-	  		WartoscMax = Tymczasowa;
-			MikrofonMax = 2;
-		}
-
-	  	Tymczasowa = adc[2];
-	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
-		{
-	  		WartoscMax = Tymczasowa;
-			MikrofonMax = 3;
-		}
-
-	  	Tymczasowa = adc[3];
-	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
-		{
-	  		WartoscMax = Tymczasowa;
-			MikrofonMax = 4;
-		}
-
-
-	  	switch(MikrofonMax)
-	  	{
-			case 1:
-				obrot_prawo(1000, 615);
-				HAL_Delay(30);
-				break;
-
-			case 2:
-				obrot_lewo(1000, 615);
-				HAL_Delay(30);
-				break;
-
-			case 3:
-				obrot_lewo(1000, 205);
-				HAL_Delay(30);
-				break;
-
-			case 4:
-				obrot_prawo(1000, 205);
-				HAL_Delay(30);
-				break;
-
-			default:
-				break;
-	  	}
+	  if(adc[0] > ProgiHalasu[KtoryProgHalasu])
+	  {
+			obrot_prawo(1000, 615);
+					HAL_Delay(30);
+	//				break;
+	  }
+	  else if(adc[1] > ProgiHalasu[KtoryProgHalasu])
+	  {
+			obrot_lewo(1000, 615);
+					HAL_Delay(30);
+	//				break;
+	  }
+	  else if(adc[2] > ProgiHalasu[KtoryProgHalasu])
+	  {
+			obrot_lewo(1000, 205);
+					HAL_Delay(30);
+	//				break;
+	  }
+	  else if(adc[3] > ProgiHalasu[KtoryProgHalasu])
+	  {
+			obrot_prawo(1000, 205);
+					HAL_Delay(30);
+	//				break;
+	  }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//
+//	  	WartoscMax = 0;
+//	  	MikrofonMax = 0;
+//	  	if(adc[0]>ProgiHalasu[KtoryProgHalasu])	adc1=adc[0];
+//	  	if(adc[1]>ProgiHalasu[KtoryProgHalasu]) adc2=adc[1];
+//	  	if(adc[2]>ProgiHalasu[KtoryProgHalasu])
+//	  	adc3=adc[2];
+//	  	adc4=adc[3];
+//HAL_ADC_Stop_DMA(&hadc1);
+	  //	Tymczasowa = adc[0];
+//	  	if(adc1 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc1)
+//		{
+//	  		WartoscMax = adc1;
+//	  		MikrofonMax = 1;
+//		}
+//
+//	  	//Tymczasowa = adc[1];
+//	  	else	if(adc2 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc2)
+//		{
+//	  		WartoscMax = adc2;
+//			MikrofonMax = 2;
+//		}
+//
+//	  	//Tymczasowa = adc[2];
+//	  	if(adc3 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc3)
+//		{
+//	  		WartoscMax = adc3;
+//			MikrofonMax = 3;
+//		}
+//
+//	  	//Tymczasowa = adc[3];
+//	  	if(adc4 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc4)
+//		{
+//	  		WartoscMax = adc4;
+//			MikrofonMax = 4;
+//		}
+
+//
+//	  	switch(MikrofonMax)
+//	  	{
+//			case 1:
+//				obrot_prawo(1000, 615);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 2:
+//				obrot_lewo(1000, 615);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 3:
+//				obrot_lewo(1000, 205);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 4:
+//				obrot_prawo(1000, 205);
+//				HAL_Delay(30);
+//				break;
+//
+//			default:
+//				break;
+//	  	}
+//
+//
+//HAL_ADC_Start_DMA(&hadc1,adc,4);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
