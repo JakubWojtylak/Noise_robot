@@ -67,8 +67,9 @@ void Error_Handler(void);
 #define Krancowka1_Pin GPIO_PIN_4
 #define Krancowka1_GPIO_Port GPIOA
 #define Krancowka1_EXTI_IRQn EXTI4_IRQn
-#define Poziom_halasu_Pin GPIO_PIN_12
-#define Poziom_halasu_GPIO_Port GPIOB
+#define PoziomHalasu_Pin GPIO_PIN_12
+#define PoziomHalasu_GPIO_Port GPIOB
+#define PoziomHalasu_EXTI_IRQn EXTI15_10_IRQn
 #define A3_Pin GPIO_PIN_13
 #define A3_GPIO_Port GPIOB
 #define A4_Pin GPIO_PIN_14

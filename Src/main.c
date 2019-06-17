@@ -53,8 +53,16 @@
 volatile GPIO_PinState StanPrzycisku;
 volatile GPIO_PinState PoprzedniStanPrzycisku = GPIO_PIN_SET;
 volatile uint32_t PoprzedniCzasPrzycisku;
-//****************************************************
 
+//****************************************************
+//Zmiana stanu przycisku2*****************************
+GPIO_PinState StanPrzycisku2;
+GPIO_PinState PoprzedniStanPrzycisku2 = GPIO_PIN_SET;
+uint32_t PoprzedniCzasPrzycisku2;
+//***************************************************
+
+const uint16_t ProgiHalasu[] = { 50, 100, 150, 250, 300};
+volatile uint8_t KtoryProgHalasu;
 uint32_t adc[4];
 /* USER CODE END PV */
 
@@ -206,7 +214,6 @@ int main(void)
   char DataToSend[100]; // Tablica zawierajaca dane do wyslania
   uint8_t MessageLength = 0; // Zawiera dlugosc wysylanej wiadomosci
 
-
   /*TIM1->CCR1 = 900;
   TIM1->CCR2 = 0;
 
@@ -220,19 +227,14 @@ int main(void)
   TIM1->CCR1 = 900;
   TIM1->CCR2 = 900;
 */
-/*   HAL_GPIO_WritePin(A1_GPIO_Port, A1_Pin, GPIO_PIN_RESET);
-   HAL_GPIO_WritePin(A2_GPIO_Port, A2_Pin, GPIO_PIN_SET);
-   HAL_GPIO_WritePin(A3_GPIO_Port, A3_Pin, GPIO_PIN_RESET);
-   HAL_GPIO_WritePin(A4_GPIO_Port, A4_Pin, GPIO_PIN_SET);
+  //670 -> obrot kola o 360 kolo r = 30mm
+  //410 (moze 400) -> obrot robota o 90 stopni przelicznik 4,56 (moze 4,45)
 
+  KtoryProgHalasu = 3;
 
-   	TIM1->CCR1 = 1000;
-   	TIM1->CCR2 = 1000;*/
-
-
-  ruchPrzod(500, 5000);
-  HAL_Delay(2000);
-
+  uint16_t WartoscMax = 0;
+  uint8_t MikrofonMax = 0;
+  uint16_t Tymczasowa = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -240,21 +242,92 @@ int main(void)
   while (1)
   {
 
+/*
+		OdczytanyStanPrzycisku = HAL_GPIO_ReadPin(Poziom_halasu_GPIO_Port, Poziom_halasu_Pin);
 
-	  //Mikrofon1 = adc_read(ADC_CHANNEL_0);
-	  //Mikrofon2 = adc_read(ADC_CHANNEL_1);
-	  /*Mikrofon3 = adc_read(ADC_CHANNEL_2);
-	  Mikrofon4 = adc_read(ADC_CHANNEL_3);*/
+		if (OdczytanyStanPrzycisku != PoprzedniStanPrzycisku)
+		{
+			PoprzedniCzasPrzycisku = HAL_GetTick();
+		}
 
-	 //MessageLength = sprintf(DataToSend, "Mikrofon1: %d, Mikrofon2: %d, Mikrofon3: %d, Mikrofon4: %d\n\r", Mikrofon1, Mikrofon2, Mikrofon3, Mikrofon4);
-	  //CDC_Transmit_FS((uint8_t*)DataToSend, MessageLength);
+		if ((HAL_GetTick() - PoprzedniCzasPrzycisku) > 10)
+		{
+			if (OdczytanyStanPrzycisku != StanPrzycisku)
+			{
+				StanPrzycisku = OdczytanyStanPrzycisku;
+
+				if (StanPrzycisku == GPIO_PIN_RESET)
+				{
+					KtoryProgHalasu = (KtoryProgHalasu + 1)%5;
+					PoprzedniCzasPrzycisku = HAL_GetTick();
+
+				}
+			}
+		}
+
+		PoprzedniStanPrzycisku = OdczytanyStanPrzycisku;*/
+
+
+	  	WartoscMax = 0;
+	  	MikrofonMax = 0;
+
+	  	Tymczasowa = adc[0];
+	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
+		{
+	  		WartoscMax = Tymczasowa;
+	  		MikrofonMax = 1;
+		}
+
+	  	Tymczasowa = adc[1];
+	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
+		{
+	  		WartoscMax = Tymczasowa;
+			MikrofonMax = 2;
+		}
+
+	  	Tymczasowa = adc[2];
+	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
+		{
+	  		WartoscMax = Tymczasowa;
+			MikrofonMax = 3;
+		}
+
+	  	Tymczasowa = adc[3];
+	  	if(Tymczasowa > ProgiHalasu[KtoryProgHalasu] && WartoscMax < Tymczasowa)
+		{
+	  		WartoscMax = Tymczasowa;
+			MikrofonMax = 4;
+		}
+
+
+	  	switch(MikrofonMax)
+	  	{
+			case 1:
+				obrot_prawo(1000, 615);
+				HAL_Delay(30);
+				break;
+
+			case 2:
+				obrot_lewo(1000, 615);
+				HAL_Delay(30);
+				break;
+
+			case 3:
+				obrot_lewo(1000, 205);
+				HAL_Delay(30);
+				break;
+
+			case 4:
+				obrot_prawo(1000, 205);
+				HAL_Delay(30);
+				break;
+
+			default:
+				break;
+	  	}
 
 
 
-	  //HAL_ADC_Start(&hadc1);
-	  //Mikrofon1 = HAL_ADC_GetValue(&hadc1);
-
-	  //HAL_Delay(10);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -312,7 +385,7 @@ void SystemClock_Config(void)
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	GPIO_PinState OdczytanyStanPrzycisku;
-
+	GPIO_PinState OdczytanyStanPrzycisku2;
 
 	if(GPIO_Pin == Krancowka1_Pin)
 	{
@@ -343,6 +416,31 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	}
 
 
+	if(GPIO_Pin == PoziomHalasu_Pin)
+	{
+		HAL_NVIC_DisableIRQ(EXTI15_10_IRQn);
+
+		OdczytanyStanPrzycisku2 = HAL_GPIO_ReadPin( PoziomHalasu_GPIO_Port,  PoziomHalasu_Pin);
+
+
+		if (OdczytanyStanPrzycisku2 != StanPrzycisku2)
+		{
+		  StanPrzycisku2 = OdczytanyStanPrzycisku2;
+
+		  if (StanPrzycisku2 == GPIO_PIN_RESET)
+		  {
+			  KtoryProgHalasu = (KtoryProgHalasu + 1)%5;
+
+		  }
+
+		}
+
+		PoprzedniStanPrzycisku2 = OdczytanyStanPrzycisku2;
+
+
+		HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+		HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+	}
 }
 
 /* USER CODE END 4 */
