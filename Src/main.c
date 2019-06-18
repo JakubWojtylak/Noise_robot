@@ -270,109 +270,112 @@ int main(void)
 
 
 
-//	  if(adc[0] > ProgiHalasu[KtoryProgHalasu])
-//	  {
-//			obrot_prawo(1000, 615);
-//					HAL_Delay(30);
-//
-//	  }
-//	  else if(adc[1] > ProgiHalasu[KtoryProgHalasu])
-//	  {
-//			obrot_lewo(1000, 615);
-//					HAL_Delay(30);
-//
-//	  }
-//	  else if(adc[2] > ProgiHalasu[KtoryProgHalasu])
-//	  {
-//			obrot_lewo(1000, 205);
-//					HAL_Delay(30);
-//;
-//	  }
-//	  else if(adc[3] > ProgiHalasu[KtoryProgHalasu])
-//	  {
-//			obrot_prawo(1000, 205);
-//
-//	  }
-//
-//
-//
-//
+	  if(adc[0] > ProgiHalasu[KtoryProgHalasu])
+	  {
+			obrot_prawo(1000, 615);
+			HAL_Delay(30);
+			ruchPrzod(1000, 2010);
+			HAL_Delay(30);
 
+		} else if (adc[1] > ProgiHalasu[KtoryProgHalasu]) {
+			obrot_lewo(1000, 615);
+			HAL_Delay(30);
+			ruchPrzod(1000, 2010);
+			HAL_Delay(30);
 
+		} else if (adc[2] > ProgiHalasu[KtoryProgHalasu]) {
+			obrot_lewo(1000, 205);
+			HAL_Delay(30);
+			ruchPrzod(1000, 2010);
+			HAL_Delay(30);
+			;
+		} else if (adc[3] > ProgiHalasu[KtoryProgHalasu]) {
+			obrot_prawo(1000, 205);
+			HAL_Delay(30);
+			ruchPrzod(1000, 2010);
+			HAL_Delay(30);
 
-
-
-
-
-
-
-
-//
-	  __disable_irq();
-	  	WartoscMax = 0;
-	  	MikrofonMax = 0;
-		adc1 = adc[0];
-		adc2 = adc[1];
-
-	  	adc3=adc[2];
-	  	adc4=adc[3];
-
-	  	//Tymczasowa = adc[0];
-	  	if(adc1 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc1)
-		{
-	  		WartoscMax = adc1;
-	  		MikrofonMax = 1;
-		}
-
-	  	//Tymczasowa = adc[1];
-	  	if(adc2 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc2)
-		{
-	  		WartoscMax = adc2;
-			MikrofonMax = 2;
-		}
-
-	  	//Tymczasowa = adc[2];
-	  	if(adc3 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc3)
-		{
-	  		WartoscMax = adc3;
-			MikrofonMax = 3;
-		}
-
-	  	//Tymczasowa = adc[3];
-	  	if(adc4 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc4)
-		{
-	  		WartoscMax = adc4;
-			MikrofonMax = 4;
 		}
 
 
-	  	switch(MikrofonMax)
-	  	{
-			case 1:
-				obrot_prawo(1000, 615);
-				HAL_Delay(30);
-				break;
 
-			case 2:
-				obrot_lewo(1000, 615);
-				HAL_Delay(30);
-				break;
 
-			case 3:
-				obrot_lewo(1000, 205);
-				HAL_Delay(30);
-				break;
 
-			case 4:
-				obrot_prawo(1000, 205);
-				HAL_Delay(30);
-				break;
 
-			default:
-				break;
-	  	}
-	  	 __enable_irq();
+
+
+
+
+
+
+
+
+////
+//	  __disable_irq();
+//	  	WartoscMax = 0;
+//	  	MikrofonMax = 0;
+//		adc1 = adc[0];
+//		adc2 = adc[1];
 //
+//	  	adc3=adc[2];
+//	  	adc4=adc[3];
+//
+//	  	//Tymczasowa = adc[0];
+//	  	if(adc1 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc1)
+//		{
+//	  		WartoscMax = adc1;
+//	  		MikrofonMax = 1;
+//		}
+//
+//	  	//Tymczasowa = adc[1];
+//	  	if(adc2 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc2)
+//		{
+//	  		WartoscMax = adc2;
+//			MikrofonMax = 2;
+//		}
+//
+//	  	//Tymczasowa = adc[2];
+//	  	if(adc3 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc3)
+//		{
+//	  		WartoscMax = adc3;
+//			MikrofonMax = 3;
+//		}
+//
+//	  	//Tymczasowa = adc[3];
+//	  	if(adc4 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc4)
+//		{
+//	  		WartoscMax = adc4;
+//			MikrofonMax = 4;
+//		}
+//
+//
+//	  	switch(MikrofonMax)
+//	  	{
+//			case 1:
+//				obrot_prawo(1000, 615);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 2:
+//				obrot_lewo(1000, 615);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 3:
+//				obrot_lewo(1000, 205);
+//				HAL_Delay(30);
+//				break;
+//
+//			case 4:
+//				obrot_prawo(1000, 205);
+//				HAL_Delay(30);
+//				break;
+//
+//			default:
+//				break;
+//	  	}
+//	  	 __enable_irq();
+////
 //HAL_ADC_Start_DMA(&hadc1,adc,4);
     /* USER CODE END WHILE */
 
