@@ -331,14 +331,14 @@ int main(void)
 			MikrofonMax = 2;
 		}
 
-	  	Tymczasowa = adc[2];
+	  	//Tymczasowa = adc[2];
 	  	if(adc3 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc3)
 		{
 	  		WartoscMax = adc3;
 			MikrofonMax = 3;
 		}
 
-	  	Tymczasowa = adc[3];
+	  	//Tymczasowa = adc[3];
 	  	if(adc4 > ProgiHalasu[KtoryProgHalasu] && WartoscMax < adc4)
 		{
 	  		WartoscMax = adc4;
